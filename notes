@@ -1,0 +1,21 @@
+Thinking need to read and understand 
+
+Async configuration
+
+The argument passed to the @Resolver() decorator is optional, but comes into play when our graph 
+becomes non-trivial. It's used to supply a parent object used by field resolver functions as they
+traverse down through an object graph.
+
+You can use inheritance with a resolver as well. You can ensure type safety by combining inheritance and TypeScript generics. For example, to create a base class with a generic findAll query, use a construction like this:
+
+
+function BaseResolver<T extends Type<unknown>>(classRef: T): any {
+  @Resolver({ isAbstract: true })
+  abstract class BaseResolverHost {
+    @Query((type) => [classRef], { name: `findAll${classRef.name}` })
+    async findAll(): Promise<T[]> {
+      return [];
+    }
+  }
+  return BaseResolverHost;
+}

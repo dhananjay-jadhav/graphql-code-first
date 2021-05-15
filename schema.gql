@@ -2,21 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Recipe {
-  id: ID!
-  title: String!
-  description: String
-  creationDate: Date!
-  ingredients: [String!]!
+type Author {
+  firstName: String
+  id: Int!
+  lastName: String
+  posts: [Post]!
 }
 
 """Date custom scalar type"""
 scalar Date
-
-type Query {
-  recipe(id: String!): Recipe!
-  recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
-}
 
 type Mutation {
   addRecipe(newRecipeData: NewRecipeInput!): Recipe!
@@ -24,11 +18,39 @@ type Mutation {
 }
 
 input NewRecipeInput {
-  title: String!
   description: String
   ingredients: [String!]!
+  title: String!
+}
+
+type Post {
+  id: Int!
+  title: String!
+  votes: Int
+}
+
+type Query {
+  author(firstName: String = "dhananjay", id: Int!, limit: Int = 10, offset: Int = 0): Author
+  authors(limit: Int = 10, offset: Int = 0): [Author!]!
+  recipe(id: String!): Recipe!
+  recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
+  warriors: [Warrior!]
+}
+
+type Recipe {
+  creationDate: Date!
+  description: String
+  id: ID!
+  ingredients: [String!]!
+  title: String!
 }
 
 type Subscription {
   recipeAdded: Recipe!
+}
+
+type Warrior {
+  id: Int!
+  level: Float!
+  name: String!
 }
