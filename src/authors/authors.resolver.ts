@@ -1,3 +1,4 @@
+import { Post } from './models/post.model';
 import {
   Resolver,
   Query,
@@ -5,11 +6,13 @@ import {
   Int,
   ResolveField,
   Parent,
+  Mutation,
 } from '@nestjs/graphql';
 import { PaginationArgs } from 'src/common/pagination.args';
 import { GetAuthorArgs } from './dto/get-author.args';
 import { authors, posts } from '../mockData/mock';
 import { Author } from './models/author.model';
+import { UpdatePostVotesInputType } from './dto/updatePostVotes.inputType';
 
 @Resolver((of) => Author)
 export class AuthorsResolver {
@@ -39,4 +42,22 @@ export class AuthorsResolver {
   //   const { id } = author;
   //   return posts.find((post) => post.authorId === id);
   // }
+
+  @Mutation((returns) => Post, { nullable: true })
+  upVotepost(@Args({ name: 'postId', type: () => Int }) postId: number) {
+    const post = posts.find((post) => post.id == postId);
+    ++post.votes;
+    return post;
+  }
+
+  @Mutation((returns) => Post)
+  updatePostVotes(
+    @Args('updatePostVotesInputType')
+    updatePostVotesInputType: UpdatePostVotesInputType
+  ) {
+    const { postId, votes } = updatePostVotesInputType;
+    const post = posts.find((post) => post.id === postId);
+    post.votes = votes;
+    return post;
+  }
 }

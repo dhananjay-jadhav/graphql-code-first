@@ -26,6 +26,8 @@ scalar Date
 type Mutation {
   addRecipe(newRecipeData: NewRecipeInput!): Recipe!
   removeRecipe(id: String!): Boolean!
+  upVotepost(postId: Int!): Post
+  updatePostVotes(updatePostVotesInputType: UpdatePostVotesInputType!): Post!
 }
 
 input NewRecipeInput {
@@ -67,6 +69,11 @@ type Recipe {
 
 type Subscription {
   recipeAdded: Recipe!
+}
+
+input UpdatePostVotesInputType {
+  postId: Int!
+  votes: Int!
 }
 
 type Warrior {
