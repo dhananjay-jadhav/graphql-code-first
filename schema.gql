@@ -9,6 +9,17 @@ type Author {
   posts: [Post]!
 }
 
+type AuthorEdge {
+  cursor: String!
+  node: Author!
+}
+
+type Car {
+  company: String!
+  id: Int!
+  modelName: String!
+}
+
 """Date custom scalar type"""
 scalar Date
 
@@ -23,6 +34,13 @@ input NewRecipeInput {
   title: String!
 }
 
+type PaginatedAuthor {
+  edges: [AuthorEdge!]
+  hasNextPage: Boolean!
+  nodes: [Author!]
+  totalCount: Int!
+}
+
 type Post {
   id: Int!
   title: String!
@@ -32,6 +50,8 @@ type Post {
 type Query {
   author(firstName: String = "dhananjay", id: Int!, limit: Int = 10, offset: Int = 0): Author
   authors(limit: Int = 10, offset: Int = 0): [Author!]!
+  findAllCar: [Car!]!
+  findAllPaginatedAuthor: [PaginatedAuthor!]!
   recipe(id: String!): Recipe!
   recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
   warriors: [Warrior!]

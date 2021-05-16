@@ -1,3 +1,4 @@
+import { Car } from 'src/cars/models/car.model';
 import { Warrior } from 'src/warriors/models/warrior.model';
 import { Author } from '../authors/models/author.model';
 import { Post } from '../authors/models/post.model';
@@ -24,5 +25,13 @@ export const warrios: Warrior[] = [
     id: 1,
     name: 'test-warrior',
     level: 10,
+  },
+];
+
+export const cars: Car[] = [
+  {
+    id: 1,
+    company: 'BMW',
+    modelName: 'X5',
   },
 ];

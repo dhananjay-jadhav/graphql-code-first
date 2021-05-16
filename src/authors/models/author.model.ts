@@ -3,7 +3,7 @@ import { Post } from './post.model';
 
 @ObjectType()
 export class Author {
-  @Field(type => Int)
+  @Field((type) => Int)
   id: number;
 
   @Field({ nullable: true })
@@ -12,6 +12,6 @@ export class Author {
   @Field({ nullable: true })
   lastName?: string;
 
-  @Field(type => [Post], {nullable: 'items'})
+  @Field((type) => [Post], { nullable: 'items' })
   posts: Post[];
 }
